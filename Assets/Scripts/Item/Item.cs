@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : ScriptableObject
+[System.Serializable]
+public class Item
 {
     public enum ITEMTYPE
     {
@@ -17,6 +18,7 @@ public abstract class Item : ScriptableObject
     public int maxItemCount;   
     public int itemCount;
     public float itemWeight;
+    public ItemObject itemObject;
 
     public bool IsFull => (itemCount >= maxItemCount);
 
@@ -30,7 +32,7 @@ public abstract class Item : ScriptableObject
         return string.Format("{0}({1})", itemName, itemCount);
     }
 
-    public abstract Item GetCopy();
+    public virtual Item GetCopy() { return null; }
 
 
     public virtual bool EqualsItem(AmmoItem.AMMOTYPE ammoType)

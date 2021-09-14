@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Ammo", menuName = "Create Item/New Item/Ammo")]
+[System.Serializable]
+//[CreateAssetMenu(fileName = "New Ammo", menuName = "Create Item/New Item/Ammo")]
 public class AmmoItem : Item
 {
     [SerializeField] AMMOTYPE ammoType;
