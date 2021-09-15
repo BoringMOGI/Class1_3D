@@ -102,9 +102,9 @@ public class GroundItemFinder : Singletone<GroundItemFinder>
         Destroy(itemObject.gameObject);                         // 아이템 오브젝트 삭제.
 
         requestItem = PlayerController.Instance.OnEquipItem(requestItem);    // 장착 시도.
-        if (requestItem != null)                                              // 장비 교체.
+        if (requestItem != null)                                             // 장비 교체.
         {
-            ItemObjectManager.Instance.GetNewItemObject(requestItem);
+            ItemManager.Instance.ConvertToObject(requestItem, objectPos);    // 기존에 장비하던 장비 아이템 바닥에 버림.
         }
     }
 

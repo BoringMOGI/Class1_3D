@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class ItemObject : MonoBehaviour
 {
-    [SerializeField] Item hasItem;
+    public Item HasItem;
 
-    public Item HasItem
+    Camera eyeCam;
+
+    public void Setup(Item hasItem)
     {
-        get
-        {
-            return hasItem.GetCopy();
-        }
-        set
-        {
-            hasItem = value;
-        }
+        HasItem = hasItem;
+
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = HasItem.itemSprite;
+
+        eyeCam = Camera.main;
     }
 
+    void Update()
+    {
+        transform.LookAt(eyeCam.transform.position);
+        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, transform.eulerAngles.z);
+    }
 }

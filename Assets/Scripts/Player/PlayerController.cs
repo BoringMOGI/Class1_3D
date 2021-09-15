@@ -157,9 +157,12 @@ public class PlayerController : Controller
         if (equip == null)
             return false;
 
-        Item before = equipList[equip.Type];                        // 장비 아이템을 꺼낸다.
-        ItemObjectManager.Instance.GetNewItemObject(before);        // 땅바닥에 버린다.
-        equipList[equip.Type] = null;
+        Item before = equipList[equip.Type];                                // 장비 아이템을 꺼낸다.
+        equipList[equip.Type] = null;                                       // 기존의 장비 배열에서 제거한다.
+
+        Vector3 itemPos = transform.position + (transform.forward * 2f);    // 나의 전방 2미터 앞.
+        ItemManager.Instance.ConvertToObject(before, itemPos);              // 땅바닥에 버린다.
+        
         return true;
     }
     public void OnDamaged(float damage)
@@ -177,5 +180,10 @@ public class PlayerController : Controller
     {
         if(searchItemPivot != null)
             Gizmos.DrawWireSphere(searchItemPivot.position, searchRadius);
+    }
+
+    public Vector3 RemoveItemPosition()
+    {
+        return transform.position + (transform.forward * 2f);
     }
 }

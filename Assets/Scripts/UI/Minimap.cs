@@ -14,17 +14,6 @@ public class Minimap : MonoBehaviour
     float offset;
     private void Start()
     {
-        RandomBox<string> randomBox = new RandomBox<string>();
-        randomBox.Push("5.56mm", 50);
-        randomBox.Push("7.62mm", 50);
-        randomBox.Push("1·¹º§ Çï¸ä", 30);
-        randomBox.Push("2·¹º§ Çï¸ä", 20);
-        randomBox.Push("3·¹º§ Çï¸ä", 10);
-
-        for (int i = 0; i < 10000; i++)
-            Debug.Log("¾ÆÀÌÅÛ »Ì±â : " + randomBox.Pick());
-
-
         offset = (maxSize - minSize) / 10.0f;
     }
 

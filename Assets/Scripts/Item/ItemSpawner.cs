@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {    
-    [SerializeField] ItemObject[] spawnItems;
     Transform[] itemPivots;
 
     // Start is called before the first frame update
@@ -23,15 +22,13 @@ public class ItemSpawner : MonoBehaviour
             if (Random.value < 0.5f)
                 continue;
 
-            // 어떤 아이템을 만들것인가?
-            ItemObject item = spawnItems[Random.Range(0, spawnItems.Length - 1)];
-            Spawn(item, pivot);
+            Spawn(pivot);
         }
     }
 
-    void Spawn(ItemObject item, Transform pivot)
+    void Spawn(Transform pivot)
     {
-        ItemObject newItem = Instantiate(item, transform);
+        ItemObject newItem = ItemManager.Instance.GetRandomItemObject();
         newItem.transform.position = pivot.transform.position;
     }
 }

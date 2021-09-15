@@ -5,12 +5,18 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Singletone<ItemManager>
 {
-    [SerializeField] TextAsset text;
-    [SerializeField] List<Item> itemList;
+    [SerializeField] ItemObject itemObjectPrefab;
 
+    List<Item> itemList;
     RandomBox<Item> randomBox;
+
+    new void Awake()
+    {
+        base.Awake();
+        ReadCsvFile();
+    }
 
     [ContextMenu("Read CSV File")]
     public void ReadCsvFile()
@@ -27,31 +33,22 @@ public class ItemManager : MonoBehaviour
     }
 
     private void CreateItem(Dictionary<string, object> data)
-    {
-        string itemName = data["Name"] as string;
-        Item.ITEMTYPE itemType = (Item.ITEMTYPE)System.Enum.Parse(typeof(Item.ITEMTYPE), data["ItemType"] as string);
-        int itemCount = (int)data["ItemCount"];
-        int maxItemCount = (int)data["MaxCount"];
-        float weight = (float)data["Weight"];
-        Sprite itemSprite = Resources.Load<Sprite>(string.Concat("ItemSprite/", itemName));
-        ItemObject itemObject = Resources.Load<ItemObject>(string.Concat("ItemObject/", itemName));
-
+    {        
         Item item = null;
 
-        switch(itemType)
+        Item.ITEMTYPE itemType = (Item.ITEMTYPE)System.Enum.Parse(typeof(Item.ITEMTYPE), data["ItemType"].ToString());
+        switch (itemType)
         {
             case Item.ITEMTYPE.Ammo:
-                item = new AmmoItem();
-                item.itemName = itemName;
-                item.itemType = itemType;
-                item.itemCount = itemCount;
-                item.maxItemCount = maxItemCount;
-                item.itemWeight = weight;
-                item.itemSprite = itemSprite;
-                item.itemObject = itemObject;
+                item = new AmmoItem(data);                
                 break;
 
             case Item.ITEMTYPE.Equipment:
+                item = new EquipItem(data);
+                break;
+
+            case Item.ITEMTYPE.Weapon:
+                // item = new WeaponItem(data);
                 break;
         }
 
@@ -74,7 +71,25 @@ public class ItemManager : MonoBehaviour
     }
     public Item GetRandomItem()
     {
-        return randomBox.Pick();
+        return randomBox.Pick().GetCopy();
     }
-    
+    public ItemObject GetRandomItemObject()
+    {
+        Item randomItem = GetRandomItem();                            // 랜덤한 아이템 데이터 추출.
+        return ConvertToObject(randomItem);                           // 해당 아이템을 오브젝트로 변환.
+    }
+    public ItemObject ConvertToObject(Item item)
+    {
+        ItemObject newItemObject = Instantiate(itemObjectPrefab);     // 해당 아이템이 가지고 있는 오브젝트 생성.
+        newItemObject.Setup(item);                                    // 생성된 오브젝트 세팅.
+
+        return newItemObject;                                         // 리턴.
+    }
+    public ItemObject ConvertToObject(Item item, Vector3 position)
+    {
+        ItemObject newItemObject = ConvertToObject(item);
+        newItemObject.transform.position = position;
+
+        return newItemObject;
+    }
 }

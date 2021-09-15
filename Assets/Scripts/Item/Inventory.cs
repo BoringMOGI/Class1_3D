@@ -62,12 +62,7 @@ public class Inventory : Singletone<Inventory>
 
         if(newItem.itemCount > 0)
             itemList.Add(newItem);
-
-        // 무게 계산.
-        currentWeight = 0f;
-        for (int i = 0; i < itemList.Count; i++)
-            currentWeight += itemList[i].itemWeight * itemList[i].itemCount;
-
+               
         UpdatedInventory();
     }
     public void RemoveItem(int index)
@@ -82,13 +77,8 @@ public class Inventory : Singletone<Inventory>
         Item removedItem = itemList[index];              // 제거할 아이템 정보 대입.
         itemList.RemoveAt(index);                        // 리스트에서 아이템 제거.
 
-        // 무게 계산.
-        currentWeight = 0f;
-        for(int i = 0; i<itemList.Count; i++)
-            currentWeight += itemList[i].itemWeight * itemList[i].itemCount;
-
         // 아이템 생성.
-        ItemObjectManager.Instance.GetNewItemObject(removedItem);
+        ItemManager.Instance.ConvertToObject(removedItem, PlayerController.Instance.RemoveItemPosition());
 
         UpdatedInventory();
     }
@@ -171,6 +161,11 @@ public class Inventory : Singletone<Inventory>
 
     private void UpdatedInventory()
     {
+        // 무게 계산.
+        currentWeight = 0f;
+        for (int i = 0; i < itemList.Count; i++)
+            currentWeight += itemList[i].itemWeight * itemList[i].itemCount;
+
         if (InventoryUI.Instance == null)
             return;
 

@@ -19,22 +19,25 @@ public class EquipItem : Item
         UtilityBelt,
     }
 
+    public EquipItem() : base()
+    {
+
+    }
+    public EquipItem(Dictionary<string, object> data) : base(data)
+    {
+        equipType = (EQUIPTYPE)System.Enum.Parse(typeof(EQUIPTYPE), data["ItemKind"].ToString());
+        itemLevel = int.Parse(data["ItemLevel"].ToString());
+    }
+
     public override Item GetCopy()
     {
-        EquipItem copy = new EquipItem();
+        EquipItem newItem = new EquipItem();
+        CopyTo(newItem);
+        
+        newItem.equipType = equipType;
+        newItem.itemLevel = itemLevel;
 
-        // Item
-        copy.itemType = ITEMTYPE.Equipment;
-        copy.itemSprite = itemSprite;
-        copy.itemName = itemName;
-        copy.maxItemCount = maxItemCount;
-        copy.itemCount = itemCount;
-        copy.itemWeight = itemWeight;
-
-        // EquipItem
-        copy.equipType = equipType;
-
-        return copy;
+        return newItem;
     }
 
     public override bool EqualsItem(EQUIPTYPE equipType)
