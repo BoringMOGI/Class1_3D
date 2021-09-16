@@ -12,6 +12,7 @@ public class AmmoItem : Item
     {
         Ammo_5_56mm,
         Ammo_7_62mm,
+        Ammo_4_5mm,
     }
 
     public AmmoItem() : base()

@@ -6,6 +6,6 @@ public class Attackable : MonoBehaviour
 {
     public void OnAttack()
     {
-
+        
     }
 }

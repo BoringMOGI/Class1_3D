@@ -6,16 +6,20 @@ using UnityEngine;
 public class EquipItem : Item
 {
     [SerializeField] EQUIPTYPE equipType;
-    [SerializeField] int itemLevel;
 
     public EQUIPTYPE Type => equipType;
-    public int ItemLevel => itemLevel;
-
+    
     public enum EQUIPTYPE
     {
-        Helmet,
-        Bag,
-        Armor,
+        Helmet_1,
+        Helmet_2,
+        Helmet_3,
+        Backpack_1,
+        Backpack_2,
+        Backpack_3,
+        Armor_1,
+        Armor_2,
+        Armor_3,
         UtilityBelt,
     }
 
@@ -26,7 +30,6 @@ public class EquipItem : Item
     public EquipItem(Dictionary<string, object> data) : base(data)
     {
         equipType = (EQUIPTYPE)System.Enum.Parse(typeof(EQUIPTYPE), data["ItemKind"].ToString());
-        itemLevel = int.Parse(data["ItemLevel"].ToString());
     }
 
     public override Item GetCopy()
@@ -35,7 +38,6 @@ public class EquipItem : Item
         CopyTo(newItem);
         
         newItem.equipType = equipType;
-        newItem.itemLevel = itemLevel;
 
         return newItem;
     }
