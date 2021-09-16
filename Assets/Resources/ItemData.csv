@@ -1,9 +1,13 @@
-Name,ItemType,ItemKind,ItemCount,MaxCount,Weight,ItemLevel
-5.56mm,Ammo,Ammo_5_56mm,20,200,0.2,0
-7.62mm,Ammo,Ammo_7_62mm,20,200,0.5,0
-Helmet Lv.1,Equipment,Helmet,1,1,10,1
-Helmet Lv.2,Equipment,Helmet,1,1,10,2
-Helmet Lv.3,Equipment,Helmet,1,1,10,3
-Bag,Equipment,Bag,1,1,10,1
-Armor,Equipment,Armor,1,1,10,1
-UtilityBelt,Equipment,UtilityBelt,1,1,10,1
+Name,SpriteName,ItemType,ItemKind,ItemCount,MaxCount,Weight,ItemLevel
+5.56mm,Ammo_556mm,Ammo,Ammo_5_56mm,20,200,0.2,0
+7.62mm,Ammo_762mm,Ammo,Ammo_7_62mm,20,200,0.5,0
+1레벨 헬멧,Equipment_Helmet1,Equipment,Helmet,1,1,10,1
+2레벨 헬멧,Equipment_Helmet2,Equipment,Helmet,1,1,10,2
+3레벨 헬멧,Equipment_Helmet3,Equipment,Helmet,1,1,10,3
+1레벨 가방,Equipment_Backpack1,Equipment,Bag,1,1,10,1
+2레벨 가방,Equipment_Backpack2,Equipment,Bag,1,1,10,2
+3레벨 가방,Equipment_Backpack3,Equipment,Bag,1,1,10,3
+1레벨 방어구,Equipment_Armor1,Equipment,Armor,1,1,10,1
+2레벨 방어구,Equipment_Armor2,Equipment,Armor,1,1,10,2
+3레벨 방어구,Equipment_Armor3,Equipment,Armor,1,1,10,3
+유틸리티 벨트,Equipment_UtilityBelt,Equipment,UtilityBelt,1,1,10,1

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 using System.Globalization;
+using System.Data;
 
 public class ItemManager : Singletone<ItemManager>
 {

@@ -43,7 +43,7 @@ public abstract class Item
         maxItemCount = int.Parse(data["MaxCount"].ToString());
         itemWeight = float.Parse(data["Weight"].ToString());
 
-        itemSprite = Resources.Load<Sprite>(string.Concat("ItemSprite/", itemName));
+        itemSprite = Resources.Load<Sprite>(string.Concat("ItemSprite/", data["SpriteName"].ToString()));
     }
 
     public abstract Item GetCopy();
