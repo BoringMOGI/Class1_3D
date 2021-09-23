@@ -12,8 +12,12 @@ public class MouseLook : Singletone<MouseLook>
 
     private void Start()
     {
+#if UNITY_STANDALONE
         //Cursor.lockState = CursorLockMode.Locked;       // 마우스 가두기.
         isUpdate = true;
+#else
+        isUpdate = false;
+#endif
     }
 
     public void AddRecoil(float x, float y)

@@ -39,11 +39,13 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
 
+        #if UNITY_STANDALONE
         if (isAlive)
         {
             Movement();
             Jump();
         }
+        #endif
 
         Gravity();
     }
@@ -81,10 +83,38 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(direction * moveSpeed * accel * Time.deltaTime);
         footstep.OnPlay(isWalk, isRun);
     }
+    public void OnMoveJoystick(Vector2 movement)
+    {
+        bool isAccel = false;
+
+        float x = movement.x;
+        float z = movement.y;
+        float accel = isAccel ? 1.5f : 1.0f;
+
+        Vector3 direction = (transform.right * x) + (transform.forward * z);
+        bool isWalk = direction != Vector3.zero && !isAccel;
+        bool isRun = direction != Vector3.zero && isAccel;
+
+        anim.SetBool("isWalk", isWalk);
+        anim.SetBool("isRun", isRun);
+
+        controller.Move(direction * moveSpeed * accel * Time.deltaTime);
+        footstep.OnPlay(isWalk, isRun);
+    }
+
+
     void Jump()
     {
         // 점프.
         if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+    public void OnJumpJoystick()
+    {
+        // 점프.
+        if (isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
